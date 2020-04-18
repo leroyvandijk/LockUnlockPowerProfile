@@ -3,6 +3,7 @@ using LockUnlockPowerProfile.Properties;
 using LockUnlockPowerProfile.Services;
 using Microsoft.Win32;
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace LockUnlockPowerProfile
@@ -15,6 +16,13 @@ namespace LockUnlockPowerProfile
 		[STAThread]
 		private static void Main()
 		{
+			// Set correct path.
+			// If launched on start-up the current directory env variable isn't set to the executable path.
+			// This will cause plugins to not be loaded.
+			string path = Path.GetDirectoryName(Application.ExecutablePath);
+			if (!string.IsNullOrEmpty(path))
+				Environment.CurrentDirectory = path;
+
 			Application.Run(new LockUnlockPowerProfileApplicationContext());
 		}
 	}

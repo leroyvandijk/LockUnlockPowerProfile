@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using LockUnlockPowerProfile.Models;
 
 namespace LockUnlockPowerProfile.Services
 {
@@ -56,7 +57,7 @@ namespace LockUnlockPowerProfile.Services
 			foreach (Type type in types)
 			{
 				//Create a new instance of all found types
-				Plugins.Add((IPlugin)Activator.CreateInstance(type), false);
+				Plugins.Add((IPlugin) Activator.CreateInstance(type), false);
 			}
 		}
 
@@ -88,6 +89,7 @@ namespace LockUnlockPowerProfile.Services
 
 			LoggerService.Instance.AddLog($"Enabling plugin {plugin.Name}");
 			Plugins[plugin] = true;
+			plugin.LogEvent += PluginOnLogEvent;
 			plugin.OnStart();
 		}
 
@@ -102,6 +104,13 @@ namespace LockUnlockPowerProfile.Services
 			LoggerService.Instance.AddLog($"Disabling plugin {plugin.Name}");
 			Plugins[plugin] = false;
 			plugin.OnEnd();
+			plugin.LogEvent -= PluginOnLogEvent;
+		}
+
+		private static void PluginOnLogEvent(object sender, LogMessageEventsArgs e)
+		{
+			if(sender is IPlugin plugin)
+				LoggerService.Instance.AddLog($"{plugin.Name}: {e.Message}");
 		}
 	}
 }

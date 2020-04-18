@@ -19,7 +19,7 @@ There is an example project in the /Plugins folder.
 
 You need to place the compiled plugin (with dependency's) in the plugins folder inside the application folder.
 
-The name should always be **LockUnlockPowerProfile.Plugins.**EXAMPLE otherwise the plugin will not be loaded.
+The name should always be **LockUnlockPowerProfile.Plugins.EXAMPLE** otherwise the plugin will not be loaded.
 
 ## Icon
 The application icon is used from https://www.iconfinder.com/iconsets/web-ui-color. Created by Julia Osadcha.

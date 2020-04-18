@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IPlugin.cs" />
+    <Compile Include="Models\LogMessageEventsArgs.cs" />
     <Compile Include="Models\SettingsModel.cs" />
     <Compile Include="Services\PluginService.cs" />
     <Compile Include="Services\PowerPlanService.cs" />
